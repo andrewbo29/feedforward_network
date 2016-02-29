@@ -10,10 +10,9 @@ class Neuron {
 public:
     Neuron() = default;
     double forward(vector<double> input);
-    double backward(vector<double> w, vector<double> d, double outVal);
+    double backward(vector<double> w, vector<double> d, double dActive);
 
 private:
-    vector<double> values;
     vector<double> weights;
     double delta;
 };
