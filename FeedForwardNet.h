@@ -9,8 +9,8 @@
 class FeedForwardNet {
 public:
     FeedForwardNet() = default;
-    void addLayer(int size);
-    double forwardPass();
+    void addFullyConnectedLayer(int size);
+    vector<double> forwardPass(vector<double> input);
 
 private:
     InputLayer inputLayer;

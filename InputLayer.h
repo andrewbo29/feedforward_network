@@ -9,7 +9,11 @@ using namespace std;
 class InputLayer {
 public:
     InputLayer() = default;
-    vector<double> forward(vector<double> input);
+    void addData(vector<double> input);
+    vector<double> forward();
+
+private:
+    vector<double> data;
 };
 
 
