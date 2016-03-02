@@ -1,20 +1,26 @@
+#include <stdexcept>
 #include "FullyConnectedLayer.h"
 
-vector<double> FullyConnectedLayer::forward(vector<double> input) {
+FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
+    for (int i = 0; i < size; ++i) {
+        neurons.push_back(Neuron());
+
+        if (activation_type == "Sigmoid") {
+            activations.push_back(Sigmoid());
+        } else {
+            throw runtime_error("No such activation function: " + activation_type);
+        }
+    }
+}
+
+vector<double> FullyConnectedLayer::forward(vector<double> &input) {
     vector<double> res;
 
-    for (decltype(neurons.size()) i = 0; i < neurons.size(); ++i) {
-        res.push_back(activasions[i].forward(neurons[i].forward(input)));
+    for (size_t i = 0; i < neurons.size(); ++i) {
+        res.push_back(activations[i].forward(neurons[i].forward(input)));
     }
 
     return res;
-}
-
-FullyConnectedLayer::FullyConnectedLayer(int size) {
-    for (int i = 0; i < size; ++i) {
-        neurons.push_back(Neuron());
-        activasions.push_back(Sigmoid());
-    }
 }
 
 

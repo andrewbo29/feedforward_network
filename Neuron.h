@@ -9,7 +9,7 @@ using namespace std;
 class Neuron {
 public:
     Neuron();
-    double forward(vector<double> input);
+    double forward(vector<double> &input);
     double backward(vector<double> w, vector<double> d, double dActive);
 
 private:

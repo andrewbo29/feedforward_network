@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #include "Neuron.h"
 #include "Sigmoid.h"
 
@@ -10,12 +11,12 @@ using namespace std;
 
 class FullyConnectedLayer {
 public:
-    FullyConnectedLayer(int size);
-    vector<double> forward(vector<double> input);
+    FullyConnectedLayer(int size, string activation_type);
+    vector<double> forward(vector<double> &input);
 
 private:
     vector<Neuron> neurons;
-    vector<Sigmoid> activasions;
+    vector<Sigmoid> activations;
 };
 
 
