@@ -23,5 +23,13 @@ vector<double> FullyConnectedLayer::forward(vector<double> &input) {
     return res;
 }
 
+void FullyConnectedLayer::backward(vector<vector<double>> &weights, vector<double> &deltas) {
+    for (size_t i = 0; i < neurons.size(); ++i) {
+        neurons[i].backward(weights[i], deltas, activations[i].backward());
+    }
+}
+
+
+
 
 

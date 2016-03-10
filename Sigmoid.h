@@ -11,7 +11,9 @@ class Sigmoid {
 public:
     Sigmoid() = default;
     double forward(double x);
-    double backward(double val);
+    double backward();
+private:
+    double s;
 };
 
 

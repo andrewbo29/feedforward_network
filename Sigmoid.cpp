@@ -1,11 +1,11 @@
 #include "Sigmoid.h"
 
 double Sigmoid::forward(double x) {
-    return 1 / (1 + exp(x));
+    s = 1 / (1 + exp(x));
+    return s;
 }
 
-double Sigmoid::backward(double val) {
-    double s = forward(val);
+double Sigmoid::backward() {
     return s * (1 - s);
 }
 

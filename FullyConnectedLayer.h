@@ -13,6 +13,7 @@ class FullyConnectedLayer {
 public:
     FullyConnectedLayer(int size, string activation_type);
     vector<double> forward(vector<double> &input);
+    void backward(vector<vector<double>> &weights, vector<double> &deltas);
 
 private:
     vector<Neuron> neurons;

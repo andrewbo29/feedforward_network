@@ -25,7 +25,7 @@ double Neuron::forward(vector<double> &input) {
     return output;
 }
 
-double Neuron::backward(vector<double> w, vector<double> d, double dActive) {
+double Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
     double s = 0;
     for (size_t i = 0; i < d.size(); ++i) {
         s += w[i] * d[i];
