@@ -11,6 +11,7 @@ int main() {
     net.addFullyConnectedLayer(3, "Sigmoid");
     net.addFullyConnectedLayer(2, "Sigmoid");
     net.addFullyConnectedLayer(1, "Sigmoid");
+    net.addLossLayer("Euclidean");
 
     vector<double> res = net.forwardPass(data[0]);
 

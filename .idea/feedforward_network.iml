@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/InputLayer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Neuron.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EuclideanLoss.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FullyConnectedLayer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/FullyConnectedLayer.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/imageProcessing.cpp" isTestSource="false" />
@@ -11,11 +12,12 @@
       <sourceFolder url="file://$MODULE_DIR$/FeedForwardNet.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Sigmoid.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Neuron.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/FeedForwardNet.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/InputLayer.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/imageProcessing.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/FeedForwardNet.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/EuclideanLoss.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

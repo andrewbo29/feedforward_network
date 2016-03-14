@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "FeedForwardNet.h"
 
 void FeedForwardNet::addFullyConnectedLayer(int size, string activation_type) {
@@ -19,6 +20,23 @@ vector<double> FeedForwardNet::forwardPass(vector<double> &input) {
 
     return layerOutput;
 }
+
+void FeedForwardNet::addLossLayer(string losslayer_type) {
+    if (losslayer_type == "Euclidean") {
+        lossLayer = EuclideanLoss();
+    } else {
+        throw runtime_error("No such activation function: " + losslayer_type);
+    }
+}
+
+
+void FeedForwardNet::backwardPass() {
+    for (auto &fc : fcs) {
+        fc.backward()
+    }
+}
+
+
 
 
 

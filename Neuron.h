@@ -11,6 +11,8 @@ public:
     Neuron();
     double forward(vector<double> &input);
     double backward(vector<double> &w, vector<double> &d, double dActive);
+    vector<double> &get_weights() { return weights; }
+    double get_delta() { return delta; }
 
 private:
     vector<double> weights;
