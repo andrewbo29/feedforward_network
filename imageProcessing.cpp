@@ -56,3 +56,13 @@ vector<vector<double>> readImagesDir(string dirName) {
 
     return data;
 }
+
+void readImagesData(string posDirName, string negDirName, vector<vector<double>> &data, vector<int> &labels) {
+    vector<vector<double>> posData = readImagesDir(posDirName);
+    data.insert(data.end(), posData.begin(), posData.end());
+    labels.insert(labels.end(), posData.size(), 1);
+
+    vector<vector<double>> negData = readImagesDir(negDirName);
+    data.insert(data.end(), negData.begin(), negData.end());
+    labels.insert(labels.end(), negData.size(), 0);
+}

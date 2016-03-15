@@ -25,14 +25,26 @@ double Neuron::forward(vector<double> &input) {
     return output;
 }
 
-double Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
-    double s = 0;
-    for (size_t i = 0; i < d.size(); ++i) {
-        s += w[i] * d[i];
+void Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
+    if (!w.empty()) {
+        double s = 0;
+        for (size_t i = 0; i < d.size(); ++i) {
+            s += w[i] * d[i];
+        }
+        delta = s * dActive;
+    } else {
+        double s = 0;
+        for (size_t i = 0; i < d.size(); ++i) {
+            s += d[i];
+        }
+        delta = s * dActive;
     }
-
-    delta = s * dActive;
-    return delta;
 }
+
+void Neuron::update_weights(double learning_rate) {
+
+}
+
+
 
 

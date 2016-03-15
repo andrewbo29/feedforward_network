@@ -24,12 +24,19 @@ vector<double> FullyConnectedLayer::forward(vector<double> &input) {
 }
 
 void FullyConnectedLayer::backward(vector<vector<double>> &weights, vector<double> &deltas) {
-    for (size_t i = 0; i < neurons.size(); ++i) {
-        vector<double> neuron_weights;
-        for (auto &w : weights) {
-            neuron_weights.push_back(w[i]);
+    if (!weights.empty()) {
+        for (size_t i = 0; i < neurons.size(); ++i) {
+            vector<double> neuron_weights;
+            for (auto &w : weights) {
+                neuron_weights.push_back(w[i]);
+            }
+            neurons[i].backward(neuron_weights, deltas, activations[i].backward());
         }
-        neurons[i].backward(neuron_weights, deltas, activations[i].backward());
+    } else {
+        for (size_t i = 0; i < neurons.size(); ++i) {
+            vector<double> neuron_weights;
+            neurons[i].backward(neuron_weights, deltas, activations[i].backward());
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    vector<vector<double>> data = readImagesDir("/home/boyarov/Projects/cpp/data/mnist_data_0/");
+//    vector<vector<double>> data = readImagesDir("/home/boyarov/Projects/cpp/data/mnist_data_0/");
 
     FeedForwardNet net;
     net.addFullyConnectedLayer(3, "Sigmoid");
@@ -13,12 +13,24 @@ int main() {
     net.addFullyConnectedLayer(1, "Sigmoid");
     net.addLossLayer("Euclidean");
 
-    vector<double> res = net.forwardPass(data[0]);
+    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0/";
+    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1/";
 
-    for (auto &r : res) {
-        cout << r << "\t";
-    }
-    cout << endl;
+    cout << "Load train data" << endl;
+
+    vector<vector<double>> dataTrain;
+    vector<int> labelsTrain;
+
+    readImagesData(posDirNameTrain, negDirNameTrain, dataTrain, labelsTrain);
+
+    cout << "Train net" << endl;
+
+    int iter_num = 5;
+    net.train(dataTrain, labelsTrain, iter_num);
+
+//    double res = net.forwardPass(data[0]);
+//
+//    cout << res << endl;
 
     return 0;
 }
