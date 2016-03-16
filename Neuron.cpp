@@ -22,6 +22,8 @@ double Neuron::forward(vector<double> &input) {
         output += weights[i] * input[i];
     }
 
+    x = input;
+
     return output;
 }
 
@@ -42,7 +44,9 @@ void Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
 }
 
 void Neuron::update_weights(double learning_rate) {
-
+    for (size_t i = 0; i < weights.size(); ++i) {
+        weights[i] -= learning_rate * x[i] * delta;
+    }
 }
 
 

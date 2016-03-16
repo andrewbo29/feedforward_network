@@ -36,25 +36,35 @@ void FeedForwardNet::backwardPass(double input, int label) {
     vector<double> deltas = {loss_back};
     vector<vector<double>> weights;
 
-    for (size_t i = fcs.size() - 1; i >= 0; --i) {
+    for (int i = (int)fcs.size() - 1; i >= 0; --i) {
         fcs[i].backward(weights, deltas);
         deltas = fcs[i].get_deltas();
         weights = fcs[i].get_weights();
     }
 }
 
-void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int iter_number) {
+void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate) {
     int num = 0;
     while (num < iter_number) {
+        cout << "Train iteration: " << num << endl;
         for (size_t i = 0; i < data.size(); ++i) {
             vector<double> input = data[i];
             int label = labels[i];
             double out = forwardPass(input);
             backwardPass(out, label);
+            update_weights(learning_rate);
         }
         ++num;
     }
 }
+
+void FeedForwardNet::update_weights(double learning_rate) {
+    for (auto &fc : fcs) {
+        fc.update_weights(learning_rate);
+    }
+}
+
+
 
 
 

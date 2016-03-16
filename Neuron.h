@@ -16,6 +16,7 @@ public:
     void update_weights(double learning_rate);
 
 private:
+    vector<double> x;
     vector<double> weights;
     double delta;
 };

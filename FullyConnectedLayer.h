@@ -14,8 +14,9 @@ public:
     FullyConnectedLayer(int size, string activation_type);
     vector<double> forward(vector<double> &input);
     void backward(vector<vector<double>> &weights, vector<double> &deltas);
-    vector<vector<double>> &get_weights();
-    vector<double> &get_deltas();
+    vector<vector<double>> get_weights();
+    vector<double> get_deltas();
+    void update_weights(double learning_rate);
 
 private:
     vector<Neuron> neurons;

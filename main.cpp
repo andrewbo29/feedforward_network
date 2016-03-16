@@ -26,11 +26,13 @@ int main() {
     cout << "Train net" << endl;
 
     int iter_num = 5;
-    net.train(dataTrain, labelsTrain, iter_num);
+    double learning_rate = 0.1;
 
-//    double res = net.forwardPass(data[0]);
-//
-//    cout << res << endl;
+    net.train(dataTrain, labelsTrain, iter_num, learning_rate);
+
+    double res = net.forwardPass(dataTrain[0]);
+
+    cout << res << endl;
 
     return 0;
 }
