@@ -13,7 +13,7 @@ public:
     void addFullyConnectedLayer(int size, string activation_type);
     void addLossLayer(string losslayer_type);
     double forwardPass(vector<double> &input);
-    void backwardPass(double input, int label);
+    double backwardPass(double input, int label);
     void train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate);
     void update_weights(double learning_rate);
 

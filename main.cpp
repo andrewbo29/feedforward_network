@@ -13,8 +13,8 @@ int main() {
     net.addFullyConnectedLayer(1, "Sigmoid");
     net.addLossLayer("Euclidean");
 
-    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0/";
-    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1/";
+    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
+    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
 
     cout << "Load train data" << endl;
 
@@ -30,9 +30,9 @@ int main() {
 
     net.train(dataTrain, labelsTrain, iter_num, learning_rate);
 
-    double res = net.forwardPass(dataTrain[0]);
-
-    cout << res << endl;
+//    double res = net.forwardPass(dataTrain[0]);
+//
+//    cout << res << endl;
 
     return 0;
 }

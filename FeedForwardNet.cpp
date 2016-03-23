@@ -30,8 +30,8 @@ void FeedForwardNet::addLossLayer(string losslayer_type) {
     }
 }
 
-void FeedForwardNet::backwardPass(double input, int label) {
-    cout << "Loss: " << lossLayer.loss(input, label) << endl;
+double FeedForwardNet::backwardPass(double input, int label) {
+    double loss = lossLayer.loss(input, label);
     double loss_back = lossLayer.backward();
     vector<double> deltas = {loss_back};
     vector<vector<double>> weights;
@@ -41,19 +41,23 @@ void FeedForwardNet::backwardPass(double input, int label) {
         deltas = fcs[i].get_deltas();
         weights = fcs[i].get_weights();
     }
+
+    return loss;
 }
 
 void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate) {
     int num = 0;
     while (num < iter_number) {
         cout << "Train iteration: " << num << endl;
+        double sum_loss = 0;
         for (size_t i = 0; i < data.size(); ++i) {
             vector<double> input = data[i];
             int label = labels[i];
             double out = forwardPass(input);
-            backwardPass(out, label);
+            sum_loss += backwardPass(out, label);
             update_weights(learning_rate);
         }
+        cout << "Mean loss: " << sum_loss / data.size() << endl;
         ++num;
     }
 }
