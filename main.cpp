@@ -25,8 +25,8 @@ int main() {
 
     cout << "Train net" << endl;
 
-    int iter_num = 5;
-    double learning_rate = 0.1;
+    int iter_num = 100;
+    double learning_rate = 0.0001;
 
     net.train(dataTrain, labelsTrain, iter_num, learning_rate);
 
