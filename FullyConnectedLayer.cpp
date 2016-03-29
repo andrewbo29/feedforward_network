@@ -14,19 +14,19 @@ FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
 }
 
 vector<double> FullyConnectedLayer::forward(vector<double> &input) {
-//    vector<double> new_input(input);
-//    new_input.push_back(1);
+    vector<double> new_input(input);
+    new_input.push_back(1);
     vector<double> res;
 
     for (size_t i = 0; i < neurons.size(); ++i) {
-//        res.push_back(activations[i].forward(neurons[i].forward(new_input)));
-        res.push_back(activations[i].forward(neurons[i].forward(input)));
+        res.push_back(activations[i].forward(neurons[i].forward(new_input)));
+//        res.push_back(activations[i].forward(neurons[i].forward(input)));
     }
 
     return res;
 }
 
-void FullyConnectedLayer::  backward(vector<vector<double>> &weights, vector<double> &deltas) {
+void FullyConnectedLayer::backward(vector<vector<double>> &weights, vector<double> &deltas) {
     if (!weights.empty()) {
         for (size_t i = 0; i < neurons.size(); ++i) {
             vector<double> neuron_weights;

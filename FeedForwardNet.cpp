@@ -39,6 +39,10 @@ double FeedForwardNet::backwardPass(double input, int label) {
     for (int i = (int)fcs.size() - 1; i >= 0; --i) {
         fcs[i].backward(weights, deltas);
         deltas = fcs[i].get_deltas();
+        for (auto &d : deltas) {
+            cout << d << " ";
+        }
+        cout << endl;
         weights = fcs[i].get_weights();
     }
 
@@ -57,7 +61,7 @@ void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, in
             sum_loss += backwardPass(out, label);
             update_weights(learning_rate);
         }
-        cout << "Mean loss: " << sum_loss / data.size() << endl;
+        cout << "Mean epoch loss: " << sum_loss / data.size() << endl;
         ++num;
     }
 }
