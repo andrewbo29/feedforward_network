@@ -1,7 +1,7 @@
 #include "Sigmoid.h"
 
 double Sigmoid::forward(double x) {
-    s = 1 / (1 + exp(x));
+    s = 1 / (1 + exp(-x));
     return s;
 }
 

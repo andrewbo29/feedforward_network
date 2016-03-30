@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <iostream>
 #include "FullyConnectedLayer.h"
 
 FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
@@ -60,8 +61,9 @@ vector<double> FullyConnectedLayer::get_deltas() {
 }
 
 void FullyConnectedLayer::update_weights(double learning_rate) {
-    for (auto &neuron : neurons) {
-        neuron.update_weights(learning_rate);
+    for (size_t i = 0; i < neurons.size(); ++i) {
+        cout << "   Neuron " << i << ":" << endl;
+        neurons[i].update_weights(learning_rate);
     }
 }
 

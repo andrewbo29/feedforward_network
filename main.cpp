@@ -5,16 +5,17 @@
 using namespace std;
 
 int main() {
-//    vector<vector<double>> data = readImagesDir("/home/boyarov/Projects/cpp/data/mnist_data_0/");
-
     FeedForwardNet net;
     net.addFullyConnectedLayer(3, "Sigmoid");
     net.addFullyConnectedLayer(2, "Sigmoid");
     net.addFullyConnectedLayer(1, "Sigmoid");
     net.addLossLayer("Euclidean");
 
-    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
-    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
+//    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
+//    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
+
+    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0";
+    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1";
 
     cout << "Load train data" << endl;
 
@@ -25,7 +26,7 @@ int main() {
 
     cout << "Train net" << endl;
 
-    int iter_num = 100;
+    int iter_num = 3;
     double learning_rate = 0.01;
 
     net.train(dataTrain, labelsTrain, iter_num, learning_rate);

@@ -15,7 +15,12 @@ Mat loadGrayScaleImage(string imageFname) {
         throw runtime_error("Could not open or find the image");
     }
 
-    return image;
+    Mat norm_image;
+//    normalize(image, norm_image, 0, 1, NORM_MINMAX, CV_32F);
+    image.convertTo(norm_image, CV_32FC3, 1.0/255.5);
+
+//    return image;
+    return norm_image;
 }
 
 void showImage(Mat image) {

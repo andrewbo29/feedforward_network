@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <random>
 #include <chrono>
+#include <iostream>
 #include "Neuron.h"
 
 Neuron::Neuron() {
@@ -11,7 +12,7 @@ double Neuron::forward(vector<double> &input) {
     if (weights.empty()) {
         int seed = chrono::system_clock::now().time_since_epoch().count();
         default_random_engine generator(seed);
-        normal_distribution<double> distribution(0, 1);
+        normal_distribution<double> distribution(0, 0.5);
         for (size_t i = 0; i < input.size(); ++i) {
             weights.push_back(distribution(generator));
         }
@@ -44,9 +45,13 @@ void Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
 }
 
 void Neuron::update_weights(double learning_rate) {
+    cout << "       Delta: " << delta <<endl;
+    cout << "       Weights: ";
     for (size_t i = 0; i < weights.size(); ++i) {
         weights[i] -= learning_rate * x[i] * delta;
+        cout << weights[i] << " ";
     }
+    cout << endl;
 }
 
 
