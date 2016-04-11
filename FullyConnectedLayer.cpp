@@ -1,6 +1,8 @@
 #include <stdexcept>
 #include <iostream>
 #include "FullyConnectedLayer.h"
+#include "Tanh.h"
+#include "Sigmoid.h"
 
 FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
     for (int i = 0; i < size; ++i) {
@@ -8,7 +10,10 @@ FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
 
         if (activation_type == "Sigmoid") {
             activations.push_back(Sigmoid());
-        } else {
+        } else if (activation_type == "Tanh") {
+            activations.push_back(Tanh());
+        }
+        else {
             throw runtime_error("No such activation function: " + activation_type);
         }
     }

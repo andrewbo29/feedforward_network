@@ -6,9 +6,12 @@ using namespace std;
 
 int main() {
     FeedForwardNet net;
-    net.addFullyConnectedLayer(3, "Sigmoid");
-    net.addFullyConnectedLayer(2, "Sigmoid");
-    net.addFullyConnectedLayer(1, "Sigmoid");
+//    net.addFullyConnectedLayer(3, "Sigmoid");
+//    net.addFullyConnectedLayer(2, "Sigmoid");
+//    net.addFullyConnectedLayer(1, "Sigmoid");
+    net.addFullyConnectedLayer(3, "Tanh");
+    net.addFullyConnectedLayer(2, "Tanh");
+    net.addFullyConnectedLayer(1, "Tanh");
     net.addLossLayer("Euclidean");
 
 //    string posDirNameTrain = "/media/datab/bases/mnist/train/0";

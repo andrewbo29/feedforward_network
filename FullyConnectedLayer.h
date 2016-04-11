@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include "Neuron.h"
-#include "Sigmoid.h"
+#include "Activasion.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ public:
 
 private:
     vector<Neuron> neurons;
-    vector<Sigmoid> activations;
+    vector<Activasion> activations;
 };
 
 
