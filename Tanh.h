@@ -6,7 +6,7 @@
 #define FEEDFORWARD_NETWORK_TANH_H
 
 
-class Tanh : public Activasion
+class Tanh
 {
 public:
     Tanh() = default;

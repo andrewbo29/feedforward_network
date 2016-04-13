@@ -5,10 +5,8 @@
 class Activasion {
 public:
     Activasion() = default;
-    virtual double forward(double x);
-    virtual double backward();
-private:
-    double s;
+    double forward(double x);
+    double backward();
 };
 
 

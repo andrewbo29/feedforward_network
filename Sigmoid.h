@@ -8,7 +8,7 @@ using namespace std;
 #define FEEDFORWARD_NETWORK_SIGMOID_H
 
 
-class Sigmoid : public Activasion
+class Sigmoid
 {
 public:
     Sigmoid() = default;

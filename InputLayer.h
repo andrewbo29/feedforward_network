@@ -9,11 +9,13 @@ using namespace std;
 class InputLayer {
 public:
     InputLayer() = default;
+    InputLayer(vector<double> m) : mean(m) {};
     void addData(vector<double> &input);
     vector<double> forward();
 
 private:
     vector<double> data;
+    vector<double> mean;
 };
 
 

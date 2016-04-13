@@ -64,7 +64,7 @@ void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, in
 
 void FeedForwardNet::update_weights(double learning_rate) {
     for (size_t i = 0; i < fcs.size(); ++i) {
-        cout << "Layer " << i << ":" << endl;
+//        cout << "Layer " << i << ":" << endl;
         fcs[i].update_weights(learning_rate);
     }
 }

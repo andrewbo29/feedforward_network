@@ -15,12 +15,7 @@ Mat loadGrayScaleImage(string imageFname) {
         throw runtime_error("Could not open or find the image");
     }
 
-    Mat norm_image;
-//    normalize(image, norm_image, 0, 1, NORM_MINMAX, CV_32F);
-    image.convertTo(norm_image, CV_32FC3, 1.0/255.5);
-
-//    return image;
-    return norm_image;
+    return image;
 }
 
 void showImage(Mat image) {
@@ -71,3 +66,31 @@ void readImagesData(string posDirName, string negDirName, vector<vector<double>>
     data.insert(data.end(), negData.begin(), negData.end());
     labels.insert(labels.end(), negData.size(), 0);
 }
+
+vector<double> get_mean_image(vector<string> &image_dirs) {
+    cout << "Compute mean image" << endl;
+
+    vector<double> mean_image;
+    int num = 0;
+    for (auto &dir : image_dirs) {
+        vector<vector<double>> data = readImagesDir(dir);
+
+        if (mean_image.empty()) {
+            mean_image.insert(mean_image.end(), data[0].size(), 0.);
+        }
+
+        for (auto &data_elem : data) {
+            for (size_t i = 0; i < data_elem.size(); ++i) {
+                mean_image[i] += data_elem[i];
+            }
+            ++num;
+        }
+    }
+
+    for (size_t i = 0; i < mean_image.size(); ++i) {
+        mean_image[i] /= num;
+    }
+    return mean_image;
+}
+
+

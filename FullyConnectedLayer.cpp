@@ -9,7 +9,8 @@ FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
         neurons.push_back(Neuron());
 
         if (activation_type == "Sigmoid") {
-            activations.push_back(Sigmoid());
+//            activations.push_back(Sigmoid());
+            throw runtime_error("No Sigmoid ");
         } else if (activation_type == "Tanh") {
             activations.push_back(Tanh());
         }
@@ -67,7 +68,7 @@ vector<double> FullyConnectedLayer::get_deltas() {
 
 void FullyConnectedLayer::update_weights(double learning_rate) {
     for (size_t i = 0; i < neurons.size(); ++i) {
-        cout << "   Neuron " << i << ":" << endl;
+//        cout << "   Neuron " << i << ":" << endl;
         neurons[i].update_weights(learning_rate);
     }
 }

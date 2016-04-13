@@ -10,6 +10,7 @@
 class FeedForwardNet {
 public:
     FeedForwardNet() = default;
+    FeedForwardNet(vector<double> m) : inputLayer(m) {};
     void addFullyConnectedLayer(int size, string activation_type);
     void addLossLayer(string losslayer_type);
     double forwardPass(vector<double> &input);
@@ -18,6 +19,7 @@ public:
     void update_weights(double learning_rate);
 
 private:
+    vector<double> mean;
     InputLayer inputLayer;
     vector<FullyConnectedLayer> fcs;
     EuclideanLoss lossLayer;

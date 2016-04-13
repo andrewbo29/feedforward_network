@@ -5,15 +5,6 @@
 using namespace std;
 
 int main() {
-    FeedForwardNet net;
-//    net.addFullyConnectedLayer(3, "Sigmoid");
-//    net.addFullyConnectedLayer(2, "Sigmoid");
-//    net.addFullyConnectedLayer(1, "Sigmoid");
-    net.addFullyConnectedLayer(3, "Tanh");
-    net.addFullyConnectedLayer(2, "Tanh");
-    net.addFullyConnectedLayer(1, "Tanh");
-    net.addLossLayer("Euclidean");
-
 //    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
 //    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
 
@@ -27,9 +18,21 @@ int main() {
 
     readImagesData(posDirNameTrain, negDirNameTrain, dataTrain, labelsTrain);
 
+    vector<string> dirs_list = {posDirNameTrain, negDirNameTrain};
+    vector<double> mean_image = get_mean_image(dirs_list);
+
+    FeedForwardNet net = FeedForwardNet(mean_image);
+//    net.addFullyConnectedLayer(3, "Sigmoid");
+//    net.addFullyConnectedLayer(2, "Sigmoid");
+//    net.addFullyConnectedLayer(1, "Sigmoid");
+    net.addFullyConnectedLayer(3, "Tanh");
+    net.addFullyConnectedLayer(2, "Tanh");
+    net.addFullyConnectedLayer(1, "Tanh");
+    net.addLossLayer("Euclidean");
+
     cout << "Train net" << endl;
 
-    int iter_num = 3;
+    int iter_num = 100;
     double learning_rate = 0.01;
 
     net.train(dataTrain, labelsTrain, iter_num, learning_rate);
