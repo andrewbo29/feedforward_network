@@ -3,6 +3,7 @@
 #include <iostream>
 #include "imageProcessing.h"
 #include <dirent.h>
+#include <opencv2/imgproc/imgproc.hpp>
 
 using namespace std;
 using namespace cv;
@@ -92,5 +93,63 @@ vector<double> get_mean_image(vector<string> &image_dirs) {
     }
     return mean_image;
 }
+
+Mat compute_mean_image(vector<string> &image_dirs) {
+    int sum_row = 0;
+    int sum_col = 0;
+    int num = 0;
+
+    for (auto &dirName : image_dirs) {
+        DIR *dir;
+        struct dirent *ent;
+        if ((dir = opendir(dirName.c_str())) != NULL) {
+            while ((ent = readdir(dir)) != NULL) {
+                string imageFname = dirName + "/" + ent->d_name;
+                try {
+                    Mat image = loadGrayScaleImage(imageFname);
+                    sum_row += image.rows;
+                    sum_col += image.cols;
+                    ++num;
+                } catch (runtime_error err) {
+//                cout << err.what() << endl;
+                }
+            }
+            closedir(dir);
+        }
+    }
+
+    int width = sum_col / num;
+    int height = sum_row / num;
+
+    cv::Mat avgImg;
+    avgImg.create(width, height, CV_32F);
+
+    for (auto &dirName : image_dirs) {
+        DIR *dir;
+        struct dirent *ent;
+        if ((dir = opendir(dirName.c_str())) != NULL) {
+            while ((ent = readdir(dir)) != NULL) {
+                string imageFname = dirName + "/" + ent->d_name;
+                try {
+                    Mat image = loadGrayScaleImage(imageFname);
+                    cv::accumulate(image, avgImg);
+                } catch (runtime_error err) {
+//                cout << err.what() << endl;
+                }
+            }
+            closedir(dir);
+        }
+    }
+
+//    for(i = 1; i <= N; i++){
+//        image = imread(fileName.c_str(),0);
+//        cv::accumulate(image, avgImg);
+//    }
+
+    avgImg = avgImg / num;
+    return avgImg;
+}
+
+
 
 

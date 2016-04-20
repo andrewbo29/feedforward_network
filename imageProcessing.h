@@ -13,3 +13,5 @@ vector<vector<double>> readImagesDir(string dirName);
 void readImagesData(string posDirName, string negDirName, vector<vector<double>> &data, vector<int> &labels);
 
 vector<double> get_mean_image(vector<string> &image_dirs);
+
+Mat compute_mean_image(vector<string> &image_dirs);

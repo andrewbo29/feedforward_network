@@ -1,4 +1,5 @@
 #include <iostream>
+#include <highgui.h>
 #include "FeedForwardNet.h"
 #include "imageProcessing.h"
 
@@ -19,12 +20,21 @@ int main() {
     readImagesData(posDirNameTrain, negDirNameTrain, dataTrain, labelsTrain);
 
     vector<string> dirs_list = {posDirNameTrain, negDirNameTrain};
-    vector<double> mean_image = get_mean_image(dirs_list);
+
+    bool is_compute_mean = false;
+    string mean_image_filename = "/home/boyarov/Projects/cpp/data/mean_image.png";
+
+    if (is_compute_mean) {
+        cv::imwrite(mean_image_filename, compute_mean_image(dirs_list));
+    }
+    vector<double> mean_image = readImage(mean_image_filename);
 
     FeedForwardNet net = FeedForwardNet(mean_image);
+
 //    net.addFullyConnectedLayer(3, "Sigmoid");
 //    net.addFullyConnectedLayer(2, "Sigmoid");
 //    net.addFullyConnectedLayer(1, "Sigmoid");
+
     net.addFullyConnectedLayer(3, "Tanh");
     net.addFullyConnectedLayer(2, "Tanh");
     net.addFullyConnectedLayer(1, "Tanh");
@@ -32,14 +42,14 @@ int main() {
 
     cout << "Train net" << endl;
 
-    int iter_num = 100;
+    int iter_num = 10;
     double learning_rate = 0.01;
 
     net.train(dataTrain, labelsTrain, iter_num, learning_rate);
 
-//    double res = net.forwardPass(dataTrain[0]);
-//
-//    cout << res << endl;
+    double res = net.forwardPass(dataTrain[0]);
+
+    cout << res << endl;
 
     return 0;
 }
