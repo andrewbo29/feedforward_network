@@ -1,5 +1,6 @@
 #include <vector>
 #include <cmath>
+#include "Activation.h"
 
 using namespace std;
 
@@ -7,14 +8,11 @@ using namespace std;
 #define FEEDFORWARD_NETWORK_SIGMOID_H
 
 
-class Sigmoid
-{
+class Sigmoid : public Activation {
 public:
     Sigmoid() = default;
-    double forward(double x);
-    double backward();
-private:
-    double s;
+    double forward(double x) override;
+    double backward() override;
 };
 
 

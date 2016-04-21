@@ -9,10 +9,9 @@ FullyConnectedLayer::FullyConnectedLayer(int size, string activation_type) {
         neurons.push_back(Neuron());
 
         if (activation_type == "Sigmoid") {
-//            activations.push_back(Sigmoid());
-            throw runtime_error("No Sigmoid ");
+            activations.push_back(make_shared<Sigmoid>());
         } else if (activation_type == "Tanh") {
-            activations.push_back(Tanh());
+            activations.push_back(make_shared<Tanh>());
         }
         else {
             throw runtime_error("No such activation function: " + activation_type);
@@ -26,7 +25,7 @@ vector<double> FullyConnectedLayer::forward(vector<double> &input) {
     vector<double> res;
 
     for (size_t i = 0; i < neurons.size(); ++i) {
-        res.push_back(activations[i].forward(neurons[i].forward(new_input)));
+        res.push_back(activations[i]->forward(neurons[i].forward(new_input)));
 //        res.push_back(activations[i].forward(neurons[i].forward(input)));
     }
 
@@ -40,12 +39,12 @@ void FullyConnectedLayer::backward(vector<vector<double>> &weights, vector<doubl
             for (auto &w : weights) {
                 neuron_weights.push_back(w[i]);
             }
-            neurons[i].backward(neuron_weights, deltas, activations[i].backward());
+            neurons[i].backward(neuron_weights, deltas, activations[i]->backward());
         }
     } else {
         for (size_t i = 0; i < neurons.size(); ++i) {
             vector<double> neuron_weights;
-            neurons[i].backward(neuron_weights, deltas, activations[i].backward());
+            neurons[i].backward(neuron_weights, deltas, activations[i]->backward());
         }
     }
 }

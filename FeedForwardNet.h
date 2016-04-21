@@ -19,7 +19,6 @@ public:
     void update_weights(double learning_rate);
 
 private:
-    vector<double> mean;
     InputLayer inputLayer;
     vector<FullyConnectedLayer> fcs;
     EuclideanLoss lossLayer;
