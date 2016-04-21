@@ -69,6 +69,12 @@ void FeedForwardNet::update_weights(double learning_rate) {
     }
 }
 
+void FeedForwardNet::grad_check() {
+
+}
+
+
+
 
 
 

@@ -72,6 +72,18 @@ void FullyConnectedLayer::update_weights(double learning_rate) {
     }
 }
 
+vector<double> FullyConnectedLayer::get_grad() {
+    vector<double> grad;
+    for (auto &neuron : neurons) {
+        for (auto &n_grad : neuron.get_grad()) {
+            grad.push_back(n_grad);
+        }
+    }
+    return grad;
+}
+
+
+
 
 
 

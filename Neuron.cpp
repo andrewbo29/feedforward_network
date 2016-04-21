@@ -54,6 +54,16 @@ void Neuron::update_weights(double learning_rate) {
 //    cout << endl;
 }
 
+vector<double> Neuron::get_grad() {
+    vector<double> grad;
+    for (size_t i = 0; i < weights.size(); ++i) {
+        grad.push_back(x[i] * delta);
+    }
+    return grad;
+}
+
+
+
 
 
 
