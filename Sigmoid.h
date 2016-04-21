@@ -1,6 +1,5 @@
 #include <vector>
 #include <cmath>
-#include "Activasion.h"
 
 using namespace std;
 

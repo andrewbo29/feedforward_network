@@ -1,6 +1,5 @@
 #include <vector>
 #include <cmath>
-#include "Activasion.h"
 
 #ifndef FEEDFORWARD_NETWORK_TANH_H
 #define FEEDFORWARD_NETWORK_TANH_H
