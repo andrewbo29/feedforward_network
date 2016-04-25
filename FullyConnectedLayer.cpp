@@ -82,6 +82,14 @@ vector<double> FullyConnectedLayer::get_grad() {
     return grad;
 }
 
+void FullyConnectedLayer::set_weights(vector<vector<double>> &new_weights) {
+    for (size_t i = 0; i < neurons.size(); ++i) {
+        neurons[i].set_weights(new_weights[i]);
+    }
+}
+
+
+
 
 
 

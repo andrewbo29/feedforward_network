@@ -53,3 +53,34 @@ int main() {
 
     return 0;
 }
+
+
+void gradient_check(FeedForwardNet &net, vector<double> &data_elem, int label) {
+    double res = net.forwardPass(data_elem);
+    vector<vector<vector<double>>> weights = net.get_weights();
+
+    FeedForwardNet net_1 = net;
+
+    net.backwardPass(res, label);
+    vector<double> analytic_grad = net.get_grad();
+
+    double epsilon = 0.0001;
+//    vector<vector<vector<double>>> weights_plus;
+//    vector<vector<vector<double>>> weights_minus;
+//    for (auto &fc_w : weights) {
+//        vector<vector<double>> weights_plus_1;
+//        vector<vector<double>> weights_minus_1;
+//        for (auto &n_w : fc_w) {
+//            vector<double> weights_plus_2;
+//            vector<double> weights_minus_2;
+//            for (auto &w : n_w) {
+//                weights_plus_2.push_back(w + epsilon);
+//                weights_minus_2.push_back(w - epsilon);
+//            }
+//            weights_plus_1.push_back(weights_plus_2);
+//            weights_minus_1.push_back(weights_minus_2);
+//        }
+//        weights_plus.push_back(weights_plus_1);
+//        weights_minus.push_back(weights_minus_1);
+//    }
+}

@@ -15,6 +15,7 @@ public:
     double get_delta() { return delta; }
     void update_weights(double learning_rate);
     vector<double> get_grad();
+    void set_weights(vector<double> &new_weights) { weights = new_weights; }
 
 private:
     vector<double> x;

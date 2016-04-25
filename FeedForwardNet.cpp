@@ -69,9 +69,37 @@ void FeedForwardNet::update_weights(double learning_rate) {
     }
 }
 
-void FeedForwardNet::grad_check() {
-
+vector<vector<vector<double>>> FeedForwardNet::get_weights() {
+    vector<vector<vector<double>>> all_weights;
+    for (auto &fc : fcs) {
+        all_weights.push_back(fc.get_weights());
+    }
+    return all_weights;
 }
+
+void FeedForwardNet::set_weights(vector<vector<vector<double>>> &new_weights) {
+    for (size_t i = 0; i < fcs.size(); ++i) {
+        fcs[i].set_weights(new_weights[i]);
+    }
+}
+
+vector<double> FeedForwardNet::get_grad() {
+    vector<double> grad;
+    for (auto &fc : fcs) {
+        for (auto &g : fc.get_grad()) {
+            grad.push_back(g);
+        }
+    }
+    return grad;
+}
+
+
+
+
+
+
+
+
 
 
 

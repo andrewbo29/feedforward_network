@@ -17,7 +17,9 @@ public:
     double backwardPass(double input, int label);
     void train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate);
     void update_weights(double learning_rate);
-    void grad_check();
+    vector<vector<vector<double>>> get_weights();
+    vector<double> get_grad();
+    void set_weights(vector<vector<vector<double>>> &new_weights);
 
 private:
     InputLayer inputLayer;

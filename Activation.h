@@ -8,8 +8,8 @@
 class Activation {
 public:
     Activation() = default;
-    virtual double forward(double x) { };
-    virtual double backward() { };
+    virtual double forward(double x) { return 0; };
+    virtual double backward() { return 0; };
     virtual ~Activation() = default;
 protected:
     double s;

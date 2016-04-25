@@ -19,6 +19,7 @@ public:
     vector<double> get_deltas();
     void update_weights(double learning_rate);
     vector<double> get_grad();
+    void set_weights(vector<vector<double>> &new_weights);
 
 private:
     vector<Neuron> neurons;
