@@ -20,6 +20,7 @@ public:
     vector<vector<vector<double>>> get_weights();
     vector<double> get_grad();
     void set_weights(vector<vector<vector<double>>> &new_weights);
+    double get_loss(double x, int y);
 
 private:
     InputLayer inputLayer;

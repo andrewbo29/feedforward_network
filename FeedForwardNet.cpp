@@ -93,6 +93,12 @@ vector<double> FeedForwardNet::get_grad() {
     return grad;
 }
 
+double FeedForwardNet::get_loss(double x, int y) {
+    return lossLayer.loss(x, y);
+}
+
+
+
 
 
 
