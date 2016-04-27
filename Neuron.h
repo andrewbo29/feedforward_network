@@ -11,7 +11,7 @@ public:
     Neuron();
     double forward(vector<double> &input);
     void backward(vector<double> &w, vector<double> &d, double dActive);
-    vector<double> &get_weights() { return weights; }
+    vector<double> get_weights() { return weights; }
     double get_delta() { return delta; }
     void update_weights(double learning_rate);
     vector<double> get_grad();
