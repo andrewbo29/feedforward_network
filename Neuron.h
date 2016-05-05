@@ -21,6 +21,7 @@ private:
     vector<double> x;
     vector<double> weights;
     double delta;
+    vector<double> dw;
 };
 
 

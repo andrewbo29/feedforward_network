@@ -1,6 +1,9 @@
 #include <stdexcept>
 #include <iostream>
+#include <chrono>
 #include "FeedForwardNet.h"
+#include <random>
+#include <algorithm>
 
 void FeedForwardNet::addFullyConnectedLayer(int size, string activation_type) {
     FullyConnectedLayer fc(size, activation_type);
@@ -30,8 +33,8 @@ void FeedForwardNet::addLossLayer(string losslayer_type) {
     }
 }
 
-double FeedForwardNet::backwardPass(double input, int label) {
-    double loss = lossLayer.loss(input, label);
+void FeedForwardNet::backwardPass(double input, int label) {
+    lossLayer.loss(input, label);
     double loss_back = lossLayer.backward();
     vector<double> deltas = {loss_back};
     vector<vector<double>> weights;
@@ -42,23 +45,27 @@ double FeedForwardNet::backwardPass(double input, int label) {
         weights = fcs[i].get_weights();
     }
 
-    return loss;
+    return;
 }
 
-void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate) {
-    int num = 0;
-    while (num < iter_number) {
-        cout << "Train iteration: " << num << endl;
-        double sum_loss = 0;
-        for (size_t i = 0; i < data.size(); ++i) {
-            vector<double> input = data[i];
-            int label = labels[i];
-            double out = forwardPass(input);
-            sum_loss += backwardPass(out, label);
+void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number, double learning_rate, int batch_size=1) {
+    int num_epoch = 0;
+    while (num_epoch < epoch_number) {
+        cout << "Train epoch: " << num_epoch << endl;
+        vector<vector<size_t>> batches_ind = get_batches(data, batch_size);
+        for (auto &batch_ind : batches_ind) {
+            double sum_loss = 0;
+            for (size_t i : batch_ind) {
+                vector<double> input = data[i];
+                int label = labels[i];
+                double out = forwardPass(input);
+                backwardPass(out, label);
+                sum_loss += lossLayer.compute_loss(out, label);
+            }
+            cout << "Mean iteration loss: " << sum_loss / batch_ind.size() << endl;
             update_weights(learning_rate);
         }
-        cout << "Mean epoch loss: " << sum_loss / data.size() << endl;
-        ++num;
+        ++num_epoch;
     }
 }
 
@@ -94,8 +101,41 @@ vector<double> FeedForwardNet::get_grad() {
 }
 
 double FeedForwardNet::get_loss(double x, int y) {
-    return lossLayer.loss(x, y);
+    return lossLayer.compute_loss(x, y);
 }
+
+vector<vector<size_t>> FeedForwardNet::get_batches(vector<vector<double>> &data, int batch_size) {
+    vector<size_t> data_ind;
+    for (size_t i = 0; i < data.size(); ++i) {
+        data_ind.push_back(i);
+    }
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(data_ind.begin(), data_ind.end(), std::default_random_engine(seed));
+
+    vector<vector<size_t>> batches_ind;
+
+    size_t ind;
+    for (ind = 0; ind < data_ind.size(); ind += batch_size) {
+        vector<size_t> batch_ind;
+        for (size_t j = ind; j < ind + batch_size; ++j) {
+            batch_ind.push_back(data_ind[j]);
+        }
+        batches_ind.push_back(batch_ind);
+    }
+
+    ind -= batch_size;
+    vector<size_t> batch_ind;
+    while (ind < data_ind.size()) {
+        batch_ind.push_back(data_ind[ind]);
+        ++ind;
+    }
+    batches_ind.push_back(batch_ind);
+
+    return batches_ind;
+}
+
+
 
 
 

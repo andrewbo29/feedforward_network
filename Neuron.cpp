@@ -15,6 +15,7 @@ double Neuron::forward(vector<double> &input) {
         normal_distribution<double> distribution(0, 1);
         for (size_t i = 0; i < input.size(); ++i) {
             weights.push_back(0.01 * distribution(generator));
+            dw.push_back(0);
         }
     }
 
@@ -29,18 +30,20 @@ double Neuron::forward(vector<double> &input) {
 }
 
 void Neuron::backward(vector<double> &w, vector<double> &d, double dActive) {
+    double s = 0;
     if (!w.empty()) {
-        double s = 0;
         for (size_t i = 0; i < d.size(); ++i) {
             s += w[i] * d[i];
         }
-        delta = s * dActive;
     } else {
-        double s = 0;
         for (size_t i = 0; i < d.size(); ++i) {
             s += d[i];
         }
-        delta = s * dActive;
+    }
+    delta = s * dActive;
+
+    for (size_t i = 0; i < weights.size(); ++i) {
+        dw[i] += x[i] * delta;
     }
 }
 
@@ -48,7 +51,9 @@ void Neuron::update_weights(double learning_rate) {
 //    cout << "       Delta: " << delta << endl;
 //    cout << "       Weights: ";
     for (size_t i = 0; i < weights.size(); ++i) {
-        weights[i] -= learning_rate * x[i] * delta;
+//        weights[i] -= learning_rate * x[i] * delta;
+        weights[i] -= learning_rate * dw[i];
+        dw[i] = 0;
 //        cout << weights[i] << " ";
     }
 //    cout << endl;

@@ -42,10 +42,11 @@ int main() {
 
     cout << "Train net" << endl;
 
-    int iter_num = 10;
+    int epoch_num = 10;
     double learning_rate = 0.01;
+    int batch_size = 1;
 
-    net.train(dataTrain, labelsTrain, iter_num, learning_rate);
+    net.train(dataTrain, labelsTrain, epoch_num, learning_rate, batch_size);
 
     double res = net.forwardPass(dataTrain[0]);
 

@@ -11,8 +11,9 @@ using namespace std;
 class EuclideanLoss {
 public:
     EuclideanLoss() = default;
-    double loss(double x, int y);
+    void loss(double x, int y);
     double backward();
+    double compute_loss(double x, int y);
 
 private:
     double x;
