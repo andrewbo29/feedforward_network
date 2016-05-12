@@ -1,16 +1,28 @@
 #include <iostream>
 #include <highgui.h>
+#include <fstream>
 #include "FeedForwardNet.h"
 #include "imageProcessing.h"
 
 using namespace std;
 
-int main() {
-//    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
-//    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
+void save_loss(string fname, vector<double> loss) {
+    ofstream output(fname);
 
-    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0";
-    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1";
+    for (auto const &l : loss) {
+        output << l << endl;
+    }
+
+    return;
+}
+
+
+int main() {
+    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
+    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
+
+//    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0";
+//    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1";
 
     cout << "Load train data" << endl;
 
@@ -43,15 +55,17 @@ int main() {
     cout << "Train net" << endl;
 
     int epoch_num = 10;
-    double learning_rate = 0.01;
-    int batch_size = 1;
+    double learning_rate = 0.001;
+    int batch_size = 512;
 
-    net.train(dataTrain, labelsTrain, epoch_num, learning_rate, batch_size);
+    vector<double> loss = net.train(dataTrain, labelsTrain, epoch_num, learning_rate, batch_size);
 
-    double res = net.forwardPass(dataTrain[0]);
+    string loss_fname = "/home/boyarov/Projects/cpp/feedforward_network/log_loss.txt";
+    save_loss(loss_fname, loss);
 
-    cout << res << endl;
+//    double res = net.forwardPass(dataTrain[0]);
+//
+//    cout << res << endl;
 
     return 0;
 }
-

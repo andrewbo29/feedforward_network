@@ -48,11 +48,14 @@ void FeedForwardNet::backwardPass(double input, int label) {
     return;
 }
 
-void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number, double learning_rate, int batch_size=1) {
+vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number, double learning_rate, int batch_size=1) {
+    vector<double> loss;
+
     int num_epoch = 0;
     while (num_epoch < epoch_number) {
-        cout << "Train epoch: " << num_epoch << endl;
+//        cout << "Train epoch: " << num_epoch << endl;
         vector<vector<size_t>> batches_ind = get_batches(data, batch_size);
+        int iter_num = 0;
         for (auto &batch_ind : batches_ind) {
             double sum_loss = 0;
             for (size_t i : batch_ind) {
@@ -62,11 +65,19 @@ void FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, in
                 backwardPass(out, label);
                 sum_loss += lossLayer.compute_loss(out, label);
             }
-            cout << "Mean iteration loss: " << sum_loss / batch_ind.size() << endl;
+            double mean_loss = sum_loss / batch_ind.size();
+            if (std::isnan(mean_loss)) {
+                return loss;
+            }
+            cout << "Epoch " << num_epoch << ", iteration " << iter_num << ", loss " << mean_loss << endl;
+            loss.push_back(mean_loss);
             update_weights(learning_rate);
+            ++iter_num;
         }
         ++num_epoch;
     }
+
+    return loss;
 }
 
 void FeedForwardNet::update_weights(double learning_rate) {

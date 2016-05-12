@@ -32,7 +32,7 @@ set(FFN_SOURCE_FILES
         Activation.h
         EuclideanLoss.cpp
         EuclideanLoss.h
-        )
+        LearningRatePolicy.h StepDownPolicy.cpp StepDownPolicy.h)
 
 add_library(FFN STATIC ${FFN_SOURCE_FILES})
 
