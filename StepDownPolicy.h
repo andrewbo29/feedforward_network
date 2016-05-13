@@ -8,17 +8,16 @@
 
 #include "LearningRatePolicy.h"
 
-class StepDownPolicy : public LearningRatePolicy
-{
+class StepDownPolicy : public LearningRatePolicy {
 public:
     StepDownPolicy() = default;
-    StepDownPolicy(double lr, int en, std::vector<double> params) : LearningRatePolicy(lr, en), step_size(params[0]),
-                                                                    gamma(params[1]) { }
-    double change_learning_rate();
+    StepDownPolicy(double lr, int en, std::vector<double> params);
+    double change_learning_rate(int cur_epoch) override;
 
 private:
-    int step_size;
     double gamma;
+    int epoch_step;
+    int previous_change_epoch;
 };
 
 

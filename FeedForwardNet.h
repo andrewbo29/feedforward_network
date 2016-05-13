@@ -6,6 +6,7 @@
 #include "InputLayer.h"
 #include "FullyConnectedLayer.h"
 #include "EuclideanLoss.h"
+#include "LearningRatePolicy.h"
 
 class FeedForwardNet {
 public:
@@ -15,7 +16,8 @@ public:
     void addLossLayer(string losslayer_type);
     double forwardPass(vector<double> &input);
     void backwardPass(double input, int label);
-    vector<double> train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate, int batch_size);
+    vector<double> train(vector<vector<double>> &data, vector<int> &labels, int iter_number, double learning_rate,
+                         LearningRatePolicy *lr_policy, int batch_size);
     void update_weights(double learning_rate);
     vector<vector<vector<double>>> get_weights();
     vector<double> get_grad();

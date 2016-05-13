@@ -3,6 +3,7 @@
 #include <fstream>
 #include "FeedForwardNet.h"
 #include "imageProcessing.h"
+#include "StepDownPolicy.h"
 
 using namespace std;
 
@@ -56,9 +57,12 @@ int main() {
 
     int epoch_num = 10;
     double learning_rate = 0.001;
-    int batch_size = 512;
+    int batch_size = 10;
 
-    vector<double> loss = net.train(dataTrain, labelsTrain, epoch_num, learning_rate, batch_size);
+    StepDownPolicy step_down = StepDownPolicy(learning_rate, epoch_num, {20, 0.001});
+    LearningRatePolicy *lr_policy = &step_down;
+
+    vector<double> loss = net.train(dataTrain, labelsTrain, epoch_num, learning_rate, lr_policy, batch_size);
 
     string loss_fname = "/home/boyarov/Projects/cpp/feedforward_network/log_loss.txt";
     save_loss(loss_fname, loss);

@@ -6,7 +6,7 @@
 class LearningRatePolicy {
 public:
     LearningRatePolicy(double lr, int en) : init_lr(lr), epoch_num(en) { }
-    virtual double change_learning_rate() { return 0; };
+    virtual double change_learning_rate(int cur_epoch) { return 0; };
     virtual ~LearningRatePolicy() = default;
 protected:
     double init_lr;

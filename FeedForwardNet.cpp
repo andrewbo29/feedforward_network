@@ -48,12 +48,13 @@ void FeedForwardNet::backwardPass(double input, int label) {
     return;
 }
 
-vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number, double learning_rate, int batch_size=1) {
+vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number,
+                                     double learning_rate, LearningRatePolicy *lr_policy, int batch_size=1) {
+
     vector<double> loss;
 
-    int num_epoch = 0;
-    while (num_epoch < epoch_number) {
-//        cout << "Train epoch: " << num_epoch << endl;
+    int num_epoch = 1;
+    while (num_epoch <= epoch_number) {
         vector<vector<size_t>> batches_ind = get_batches(data, batch_size);
         int iter_num = 0;
         for (auto &batch_ind : batches_ind) {
@@ -71,6 +72,7 @@ vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &
             }
             cout << "Epoch " << num_epoch << ", iteration " << iter_num << ", loss " << mean_loss << endl;
             loss.push_back(mean_loss);
+            learning_rate = lr_policy->change_learning_rate(num_epoch);
             update_weights(learning_rate);
             ++iter_num;
         }
