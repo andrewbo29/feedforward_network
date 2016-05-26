@@ -55,11 +55,11 @@ int main() {
 
     cout << "Train net" << endl;
 
-    int epoch_num = 10;
-    double learning_rate = 0.001;
-    int batch_size = 10;
+    int epoch_num = 20;
+    double learning_rate = 0.0001;
+    int batch_size = 256;
 
-    StepDownPolicy step_down = StepDownPolicy(learning_rate, epoch_num, {20, 0.001});
+    StepDownPolicy step_down = StepDownPolicy(learning_rate, epoch_num, {20, 0.1});
     LearningRatePolicy *lr_policy = &step_down;
 
     vector<double> loss = net.train(dataTrain, labelsTrain, epoch_num, learning_rate, lr_policy, batch_size);

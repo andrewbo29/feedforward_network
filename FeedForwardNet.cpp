@@ -70,7 +70,7 @@ vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &
             if (std::isnan(mean_loss)) {
                 return loss;
             }
-            cout << "Epoch " << num_epoch << ", iteration " << iter_num << ", loss " << mean_loss << endl;
+            cout << "Epoch " << num_epoch << ", iteration " << iter_num << ", learning rate " << learning_rate << ", loss " << mean_loss << endl;
             loss.push_back(mean_loss);
             learning_rate = lr_policy->change_learning_rate(num_epoch);
             update_weights(learning_rate);
@@ -131,7 +131,7 @@ vector<vector<size_t>> FeedForwardNet::get_batches(vector<vector<double>> &data,
     size_t ind;
     for (ind = 0; ind < data_ind.size(); ind += batch_size) {
         vector<size_t> batch_ind;
-        for (size_t j = ind; j < ind + batch_size; ++j) {
+        for (size_t j = ind; j < ind + batch_size && j < data_ind.size(); ++j) {
             batch_ind.push_back(data_ind[j]);
         }
         batches_ind.push_back(batch_ind);
