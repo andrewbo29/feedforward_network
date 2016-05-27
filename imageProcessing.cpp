@@ -58,14 +58,15 @@ vector<vector<double>> readImagesDir(string dirName) {
     return data;
 }
 
-void readImagesData(string posDirName, string negDirName, vector<vector<double>> &data, vector<int> &labels) {
-    vector<vector<double>> posData = readImagesDir(posDirName);
-    data.insert(data.end(), posData.begin(), posData.end());
-    labels.insert(labels.end(), posData.size(), 1);
-
-    vector<vector<double>> negData = readImagesDir(negDirName);
-    data.insert(data.end(), negData.begin(), negData.end());
-    labels.insert(labels.end(), negData.size(), 0);
+void readImagesData(vector<string> dir_names, vector<vector<double>> &data, vector<vector<int>>&labels) {
+    for (size_t i = 0; i < dir_names.size(); ++i) {
+        vector<vector<double>> read_data = readImagesDir(dir_names[i]);
+        data.insert(data.end(), read_data.begin(), read_data.end());
+        vector<int> label(dir_names.size());
+        std::fill(label.begin(), label.end(), 0);
+        label[i] = 1;
+        labels.insert(labels.end(), read_data.size(), label);
+    }
 }
 
 vector<double> get_mean_image(vector<string> &image_dirs) {

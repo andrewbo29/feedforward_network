@@ -10,7 +10,7 @@ vector<double> readImage(string imageFname);
 
 vector<vector<double>> readImagesDir(string dirName);
 
-void readImagesData(string posDirName, string negDirName, vector<vector<double>> &data, vector<int> &labels);
+void readImagesData(vector<string> dir_names, vector<vector<double>> &data, vector<vector<int>> &labels);
 
 vector<double> get_mean_image(vector<string> &image_dirs);
 

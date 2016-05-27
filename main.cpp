@@ -27,12 +27,12 @@ int main() {
 
     cout << "Load train data" << endl;
 
-    vector<vector<double>> dataTrain;
-    vector<int> labelsTrain;
-
-    readImagesData(posDirNameTrain, negDirNameTrain, dataTrain, labelsTrain);
-
     vector<string> dirs_list = {posDirNameTrain, negDirNameTrain};
+
+    vector<vector<double>> dataTrain;
+    vector<vector<int>> labelsTrain;
+
+    readImagesData(dirs_list, dataTrain, labelsTrain);
 
     bool is_compute_mean = false;
     string mean_image_filename = "/home/boyarov/Projects/cpp/data/mean_image.png";
@@ -48,9 +48,9 @@ int main() {
 //    net.addFullyConnectedLayer(2, "Sigmoid");
 //    net.addFullyConnectedLayer(1, "Sigmoid");
 
+    net.addFullyConnectedLayer(4, "Tanh");
     net.addFullyConnectedLayer(3, "Tanh");
     net.addFullyConnectedLayer(2, "Tanh");
-    net.addFullyConnectedLayer(1, "Tanh");
     net.addLossLayer("Euclidean");
 
     cout << "Train net" << endl;

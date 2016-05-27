@@ -10,7 +10,7 @@ void FeedForwardNet::addFullyConnectedLayer(int size, string activation_type) {
     fcs.push_back(fc);
 }
 
-double FeedForwardNet::forwardPass(vector<double> &input) {
+vector<double> FeedForwardNet::forwardPass(vector<double> &input) {
     inputLayer.addData(input);
 
     vector<double> layerInput = inputLayer.forward();
@@ -22,7 +22,7 @@ double FeedForwardNet::forwardPass(vector<double> &input) {
         layerInput.insert(layerInput.begin(), 1.);
     }
 
-    return layerOutput[0];
+    return layerOutput;
 }
 
 void FeedForwardNet::addLossLayer(string losslayer_type) {
@@ -33,7 +33,7 @@ void FeedForwardNet::addLossLayer(string losslayer_type) {
     }
 }
 
-void FeedForwardNet::backwardPass(double input, int label) {
+void FeedForwardNet::backwardPass(vector<double> input, vector<int> label) {
     lossLayer.loss(input, label);
     double loss_back = lossLayer.backward();
     vector<double> deltas = {loss_back};
@@ -48,7 +48,7 @@ void FeedForwardNet::backwardPass(double input, int label) {
     return;
 }
 
-vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &labels, int epoch_number,
+vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<vector<int>> &labels, int epoch_number,
                                      double learning_rate, LearningRatePolicy *lr_policy, int batch_size=1) {
 
     vector<double> loss;
@@ -61,8 +61,8 @@ vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<int> &
             double sum_loss = 0;
             for (size_t i : batch_ind) {
                 vector<double> input = data[i];
-                int label = labels[i];
-                double out = forwardPass(input);
+                vector<int> label = labels[i];
+                vector<double> out = forwardPass(input);
                 backwardPass(out, label);
                 sum_loss += lossLayer.compute_loss(out, label);
             }
@@ -113,7 +113,7 @@ vector<double> FeedForwardNet::get_grad() {
     return grad;
 }
 
-double FeedForwardNet::get_loss(double x, int y) {
+double FeedForwardNet::get_loss(vector<double> x, vector<int> y) {
     return lossLayer.compute_loss(x, y);
 }
 
