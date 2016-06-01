@@ -7,13 +7,20 @@ void EuclideanLoss::loss(vector<double> x, vector<int> y) {
 //    return (x - y) * (x - y);
 }
 
-double EuclideanLoss::backward() {
-    double sum = 0;
-    for (size_t i = 0; i < x.size(); ++i) {
-        sum += 2 * (x[i] - y[i]);
-    }
+vector<double> EuclideanLoss::backward() {
+    vector<double> deltas;
 
-    return sum;
+    deltas.push_back(0);
+    for (size_t i = 0; i < x.size(); ++i) {
+        deltas[0] += (x[i] - y[i]);
+    }
+    deltas[0] = 2 * sqrt(deltas[0]);
+
+//    for (size_t i = 0; i < x.size(); ++i) {
+//        deltas.push_back(2 * (x[i] - y[i]));
+//    }
+
+    return deltas;
 }
 
 double EuclideanLoss::compute_loss(vector<double> x, vector<int> y) {

@@ -35,8 +35,9 @@ void FeedForwardNet::addLossLayer(string losslayer_type) {
 
 void FeedForwardNet::backwardPass(vector<double> input, vector<int> label) {
     lossLayer.loss(input, label);
-    double loss_back = lossLayer.backward();
-    vector<double> deltas = {loss_back};
+//    double loss_back = lossLayer.backward();
+//    vector<double> deltas = {loss_back};
+    vector<double> deltas = lossLayer.backward();
     vector<vector<double>> weights;
 
     for (int i = (int)fcs.size() - 1; i >= 0; --i) {

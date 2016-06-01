@@ -19,11 +19,11 @@ void save_loss(string fname, vector<double> loss) {
 
 
 int main() {
-    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
-    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
+//    string posDirNameTrain = "/media/datab/bases/mnist/train/0";
+//    string negDirNameTrain = "/media/datab/bases/mnist/train/1";
 
-//    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0";
-//    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1";
+    string posDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_0";
+    string negDirNameTrain = "/home/boyarov/Projects/cpp/data/mnist_data_1";
 
     cout << "Load train data" << endl;
 
@@ -56,8 +56,8 @@ int main() {
     cout << "Train net" << endl;
 
     int epoch_num = 20;
-    double learning_rate = 0.0001;
-    int batch_size = 256;
+    double learning_rate = 0.01;
+    int batch_size = 1;
 
     StepDownPolicy step_down = StepDownPolicy(learning_rate, epoch_num, {20, 0.1});
     LearningRatePolicy *lr_policy = &step_down;

@@ -12,7 +12,7 @@ class EuclideanLoss {
 public:
     EuclideanLoss() = default;
     void loss(vector<double> x, vector<int> y);
-    double backward();
+    vector<double> backward();
     double compute_loss(vector<double> x, vector<int> y);
 
 private:

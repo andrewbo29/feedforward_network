@@ -58,7 +58,7 @@ vector<vector<double>> readImagesDir(string dirName) {
     return data;
 }
 
-void readImagesData(vector<string> dir_names, vector<vector<double>> &data, vector<vector<int>>&labels) {
+void readImagesData(vector<string> dir_names, vector<vector<double>> &data, vector<vector<int>> &labels) {
     for (size_t i = 0; i < dir_names.size(); ++i) {
         vector<vector<double>> read_data = readImagesDir(dir_names[i]);
         data.insert(data.end(), read_data.begin(), read_data.end());
