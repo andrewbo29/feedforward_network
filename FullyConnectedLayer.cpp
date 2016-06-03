@@ -44,7 +44,8 @@ void FullyConnectedLayer::backward(vector<vector<double>> &weights, vector<doubl
     } else {
         for (size_t i = 0; i < neurons.size(); ++i) {
             vector<double> neuron_weights;
-            neurons[i].backward(neuron_weights, deltas, activations[i]->backward());
+            vector<double> neuron_deltas = {deltas[i]};
+            neurons[i].backward(neuron_weights, neuron_deltas, activations[i]->backward());
         }
     }
 }

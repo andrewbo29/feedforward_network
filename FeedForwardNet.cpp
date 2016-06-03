@@ -18,6 +18,10 @@ vector<double> FeedForwardNet::forwardPass(vector<double> &input) {
 
     for (auto &fc : fcs) {
         layerOutput = fc.forward(layerInput);
+//        for (auto &l : layerOutput) {
+//            std::cout << l << " " ;
+//        }
+//        std::cout << std::endl;
         layerInput = layerOutput;
         layerInput.insert(layerInput.begin(), 1.);
     }
@@ -69,6 +73,7 @@ vector<double> FeedForwardNet::train(vector<vector<double>> &data, vector<vector
             }
             double mean_loss = sum_loss / batch_ind.size();
             if (std::isnan(mean_loss)) {
+//                std::cout << sum_loss << " " << batch_ind.size() << std::endl;
                 return loss;
             }
             cout << "Epoch " << num_epoch << ", iteration " << iter_num << ", learning rate " << learning_rate << ", loss " << mean_loss << endl;
